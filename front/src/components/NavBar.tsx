@@ -1,14 +1,13 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { PrismicLink } from '@prismicio/react'
-import toggleMenu from '@/public/icons/toggleMenu.svg'
-import { fetchDataPrismic, PrismicResponse } from '@/services/prismicio'
-import { createClient } from '@/prismicio'
 import { DepartmentsMenu } from './ToggleMenus'
-
+import { departmentsList } from '@/lib/lists'
+import Link from 'next/link'
+import { useAPI } from '@/contexts/APIContext'
 
 interface HomePageProps {
-  data: PrismicResponse | null;
+  data: any | null;
   error: string | null;
 }
 
@@ -16,42 +15,25 @@ interface HomePageProps {
 export interface NavBarProps {
   settings: any
 }
-export default async function NavBar() {
-  const client = createClient()
-  const settings = await client.getSingle('settings')
-
-  // useEffect(() => {
-  //   const fetchPrismicData = () => {
-  //     const client = createClient()
-  //     client.getSingle('settings')
-  //       .then((response) => {
-  //         console.log(response)
-  //         setPrismicData(response)
-  //       })
-  //       .catch((error) => {
-  //         console.error('Erro ao tentar obter custom type "settings" do prismic: ', error)
-  //       })
-  //   }
-
-  //   fetchPrismicData()
-  // }, [])
+export default function NavBar() {
+  const { Categories } = useAPI()
+  
 
   return (
-    <nav className='header-nav' style={{ backgroundColor: `${settings.data.navbar_color}`}}>
-
-      <DepartmentsMenu />
+    <nav className='header-nav bg-zinc-500'>
 
       <ul className='flex gap-[14px] overflow-auto'>
-        
-        {settings.data.navbar.map((item: any, index: number) => (
+        {Categories.slice(0,4).map((item: any, index: number) => (
           <li key={index}>
-            <PrismicLink className='header-nav-list-items transition-all duration-500' field={item.link}>
+            <Link className='header-nav-list-items transition-all duration-500' href={`departments/${item.slug}`}>
               {item.name}
-            </PrismicLink>
+            </Link>
           </li>
         ))}
-
       </ul>
+
+      {/* <DepartmentsMenu /> */}
+
     </nav>
   )
 }

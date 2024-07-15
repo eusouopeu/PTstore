@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { departmentsList, userOptionsList } from '@/lib/lists';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { icon } from '@/lib/icons';
-import { Icons } from './Icons';
 import { useRouter } from 'next/navigation';
+import { Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 
 export const DepartmentsMenu: React.FC = () => {
@@ -16,7 +15,7 @@ export const DepartmentsMenu: React.FC = () => {
 
   return (
     <div className='flex'>
-      <Icons src={icon.toggleMenu} width={22} onClick={toggleDepartmentsModal}/>
+      <Bars3Icon onClick={toggleDepartmentsModal}/>
 
       <ul className={clsx(
         'flex z-30 absolute top-[170px] lg:top-[195px] left-[0] flex-col flex-wrap justify-center w-[90%] lg:w-[606px] max-h-[372px] py-[30px] px-[50px] gap-[16px] bg-white rounded-r-[20px] shadow-lg transition-all duration-1000',
@@ -55,7 +54,7 @@ export const UserMenu = () => {
 
   return (
     <div className='w-fit h-fit'>
-      <Icons iconStyle='lg:w-[44px] lg:h-[44px]' src={icon.user} width={22} onClick={toggleUserModal} />
+      <UserCircleIcon className='lg:w-[44px] lg:h-[44px]' onClick={toggleUserModal} />
 
       <ul className={clsx(
         'flex z-30 absolute top-[90px] right-[100px] flex-col items-center justify-center max-w-[606px] py-[21px] px-[15px] gap-[4px] bg-white rounded-[20px] shadow-lg transition-all duration-1000',
